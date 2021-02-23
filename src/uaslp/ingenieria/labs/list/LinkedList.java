@@ -68,12 +68,12 @@ public class LinkedList {
             head.setPrevious(null);
         }
 
-        if (index == size - 1) {
+        if (index == size) {
             tail = tail.getPrevious();
             tail.setNext(null);
         }
 
-        if (index > 0 && index < size - 1) {
+        if (index > 0 && index < size) {
             while (currentIndex < index) {
                 currentNode = currentNode.getNext();
                 currentIndex++;
