@@ -85,6 +85,10 @@ public class LinkedList {
 
     }
 
+    public Iterator getIterator(){
+        return new Iterator(head);
+    }
+
     //Iterador -> patrón de diseño
 
     public int getSize() {
