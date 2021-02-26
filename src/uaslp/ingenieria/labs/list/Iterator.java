@@ -18,4 +18,8 @@ public class Iterator {
 
         return data;
     }
+
+    Node getCurrentNode() {  // modificador de acceso se llama -> package-private
+        return currentNode;
+    }
 }
