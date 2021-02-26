@@ -102,15 +102,19 @@ public class LinkedList {
             newNode.setNext(currentNode.getNext());
             newNode.setPrevious(currentNode);
             currentNode.setNext(newNode);
-            if(newNode.getNext() != null) {
+            if (newNode.getNext() != null) {
                 newNode.getNext().setPrevious(newNode);
+            } else {
+                tail = newNode;
             }
         } else if (position == BEFORE) {
             newNode.setPrevious(currentNode.getPrevious());
             newNode.setNext(currentNode);
             currentNode.setPrevious(newNode);
-            if(newNode.getPrevious() != null) {
+            if (newNode.getPrevious() != null) {
                 newNode.getPrevious().setNext(newNode);
+            } else {
+                head = newNode;
             }
         } else {
             System.out.println("No conozco el valor de position");
@@ -119,10 +123,13 @@ public class LinkedList {
     }
 
 
-
     //Iterador -> patrón de diseño
 
     public int getSize() {
         return size;
+    }
+
+    public ReverseIterator getReverseIterator() {
+        return new ReverseIterator(tail);
     }
 }
