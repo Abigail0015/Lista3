@@ -29,7 +29,7 @@ public class Main {
         //ReverseIterator it2 = lista1.getReverseIterator();
 
         while(it.hasNext()){
-            Iterator backupIt = it;
+            Iterator backupIt = new Iterator(it);
             int element = it.next(); //regresar el dato y avanzar el iterador
 
             if(element == 3){
@@ -43,7 +43,9 @@ public class Main {
             System.out.println("Dato: " + element);
         }
 
-        System.out.println("---------------------");
+        System.out.println("--------------------- Completo");
+
+        it = lista1.getIterator();
 
         while(it.hasNext()){
             int element = it.next(); //regresar el dato y avanzar el iterador

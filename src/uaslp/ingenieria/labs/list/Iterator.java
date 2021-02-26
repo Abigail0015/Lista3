@@ -7,6 +7,10 @@ public class Iterator {
         this.currentNode = currentNode;
     }
 
+    public Iterator(Iterator iterator){
+        currentNode = iterator.currentNode;
+    }
+
     public boolean hasNext(){
         return currentNode != null;
     }
