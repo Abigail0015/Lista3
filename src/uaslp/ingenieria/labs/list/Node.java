@@ -1,35 +1,35 @@
 package uaslp.ingenieria.labs.list;
 
-class Node {
-    private int data;
-    private Node previous;
-    private Node next;
+class Node<T> {
+    private T data;
+    private Node<T> previous;
+    private Node<T> next;
 
-    Node(int data){
+    Node(T data){
         this.data = data;
     }
 
-    public int getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(T data) {
         this.data = data;
     }
 
-    public Node getPrevious() {
+    public Node<T> getPrevious() {
         return previous;
     }
 
-    public void setPrevious(Node previous) {
+    public void setPrevious(Node<T> previous) {
         this.previous = previous;
     }
 
-    public Node getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 }

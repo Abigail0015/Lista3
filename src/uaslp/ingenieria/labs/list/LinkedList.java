@@ -6,19 +6,86 @@ import static uaslp.ingenieria.labs.list.Position.BEFORE;
 /**
  * Lista doblemente ligada
  */
-public class LinkedList {
+public class LinkedList<G> {
 
-    private Node head;
-    private Node tail;
+    // static -> Pertenece a la clase y no al objeto
+     // --> variables -> variables pertenezcan a la clase LinkedList.listsCount
+     // --> Métodos --> LinkedList.getListsCount();
+     // --> Inner classes
+
+    private Node<G> head;
+    private Node<G> tail;
     private int size;
+
+    public LinkedList() {
+        listsCount ++;
+    }
+
+    private static int listsCount = 0;
+
+    public static int getListsCount(){
+        return listsCount;
+    }
+
+
+
+    public class Iterator {
+        private Node<G> currentNode;
+
+        public Iterator() {
+            this.currentNode = head;
+        }
+
+        public Iterator(Iterator iterator){
+            currentNode = iterator.currentNode;
+        }
+
+        public boolean hasNext(){
+            return currentNode != null;
+        }
+
+        public G next(){
+            G data = currentNode.getData();
+
+            currentNode = currentNode.getNext();
+
+            return data;
+        }
+
+        Node getCurrentNode() {  // modificador de acceso se llama -> package-private
+            return currentNode;
+        }
+    }
+
+    public class ReverseIterator {
+
+        private Node<G> currentNode;
+
+        public ReverseIterator() {
+            this.currentNode = tail;
+        }
+
+
+        public boolean hasNext(){
+            return currentNode != null;
+        }
+
+        public G next(){
+            G data = currentNode.getData();
+
+            currentNode = currentNode.getPrevious();
+
+            return data;
+        }
+    }
 
     /**
      * Inserts data at the end of the list
      *
      * @param data Data to be inserted
      */
-    public void add(int data) {
-        Node node = new Node(data);
+    public void add(G data) {
+        Node<G> node = new Node<>(data);
 
         node.setPrevious(tail);
 
@@ -38,8 +105,8 @@ public class LinkedList {
      * @param index 0-index
      * @return data in index
      */
-    public int get(int index) {
-        Node currentNode = head;
+    public G get(int index) {
+        Node<G> currentNode = head;
         int currentIndex = 0;
 
         while (currentIndex < index) {
@@ -51,7 +118,7 @@ public class LinkedList {
     }
 
     public void delete(int index) {
-        Node currentNode = head;
+        Node<G> currentNode = head;
         int currentIndex = 0;
 
         if (index < 0 || index >= size) {
@@ -89,14 +156,14 @@ public class LinkedList {
     }
 
     public Iterator getIterator() {
-        return new Iterator(head);
+        return new Iterator();
     }
 
-    public void insert(int data, Position position, Iterator it) {
+    public void insert(G data, Position position, Iterator it) {
         // ¿qué ofrece java para restringir los valores de position a solamente BEFORE y AFTER?
 
-        Node newNode = new Node(data);
-        Node currentNode = it.getCurrentNode();
+        Node<G> newNode = new Node<>(data);
+        Node<G> currentNode = it.getCurrentNode();
 
         if (position == AFTER) {
             newNode.setNext(currentNode.getNext());
@@ -127,6 +194,6 @@ public class LinkedList {
     }
 
     public ReverseIterator getReverseIterator() {
-        return new ReverseIterator(tail);
+        return new ReverseIterator();
     }
 }
