@@ -13,6 +13,48 @@ public class LinkedList<G> {
      // --> Métodos --> LinkedList.getListsCount();
      // --> Inner classes
 
+    private static class Node<T>{
+        // IMPORTANTE 1:
+        // Noten que el tipo genérico G le pertenece a los OBJETOS LinkedList no a la clase, y ya que Node no le pertenece
+        // a un objeto LinkedList, entonces no comparte el significado del tipo genérico G y es necesario
+        // que se le defina un propio tipo genérico como si estuviera fuera del archivo
+        private final T data;
+        private Node<T> previous;
+        private Node<T> next;
+
+        Node(T data){
+            this.data = data;
+        }
+
+        // IMPORTANTE 2:
+        // Ya que Node es privado podemos eliminar los getters y los setters y utilizar sus atributos directamente
+        // ya que no puede estar expuesto a malos usos desde fuera del LinkedList por tener visibilidad privada
+        /*
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
+        public Node<T> getPrevious() {
+            return previous;
+        }
+
+        public void setPrevious(Node<T> previous) {
+            this.previous = previous;
+        }
+
+        public Node<T> getNext() {
+            return next;
+        }
+
+        public void setNext(Node<T> next) {
+            this.next = next;
+        }*/
+    }
+
     private Node<G> head;
     private Node<G> tail;
     private int size;
@@ -26,6 +68,7 @@ public class LinkedList<G> {
     public static int getListsCount(){
         return listsCount;
     }
+
 
 
 
@@ -45,14 +88,15 @@ public class LinkedList<G> {
         }
 
         public G next(){
-            G data = currentNode.getData();
+            G data = currentNode.data; // Noten que a pesar de que data es private, la outer class (LinkedList) tiene acceso
+                                       // al campo
 
-            currentNode = currentNode.getNext();
+            currentNode = currentNode.next;
 
             return data;
         }
 
-        Node getCurrentNode() {  // modificador de acceso se llama -> package-private
+        Node<G> getCurrentNode() {  // modificador de acceso se llama -> package-private
             return currentNode;
         }
     }
@@ -71,9 +115,9 @@ public class LinkedList<G> {
         }
 
         public G next(){
-            G data = currentNode.getData();
+            G data = currentNode.data;
 
-            currentNode = currentNode.getPrevious();
+            currentNode = currentNode.previous;
 
             return data;
         }
@@ -87,10 +131,10 @@ public class LinkedList<G> {
     public void add(G data) {
         Node<G> node = new Node<>(data);
 
-        node.setPrevious(tail);
+        node.previous = tail;
 
         if (tail != null) {
-            tail.setNext(node);
+            tail.next = node;
         }
 
         if (head == null) {
@@ -110,11 +154,11 @@ public class LinkedList<G> {
         int currentIndex = 0;
 
         while (currentIndex < index) {
-            currentNode = currentNode.getNext();
+            currentNode = currentNode.next;
             currentIndex++;
         }
 
-        return currentNode.getData();
+        return currentNode.data;
     }
 
     public void delete(int index) {
@@ -134,22 +178,22 @@ public class LinkedList<G> {
         }
 
         if (index == 0) {
-            head = head.getNext();
-            head.setPrevious(null);
+            head = head.next;
+            head.previous = null;
         }
 
         if (index == size) {
-            tail = tail.getPrevious();
-            tail.setNext(null);
+            tail = tail.previous;
+            tail.next = null;
         }
 
         if (index > 0 && index < size) {
             while (currentIndex < index) {
-                currentNode = currentNode.getNext();
+                currentNode = currentNode.next;
                 currentIndex++;
             }
-            currentNode.getPrevious().setNext(currentNode.getNext());
-            currentNode.getNext().setPrevious(currentNode.getPrevious());
+            currentNode.previous.next = currentNode.next;
+            currentNode.next.previous = currentNode.previous;
         }
 
 
@@ -166,20 +210,20 @@ public class LinkedList<G> {
         Node<G> currentNode = it.getCurrentNode();
 
         if (position == AFTER) {
-            newNode.setNext(currentNode.getNext());
-            newNode.setPrevious(currentNode);
-            currentNode.setNext(newNode);
-            if (newNode.getNext() != null) {
-                newNode.getNext().setPrevious(newNode);
+            newNode.next = currentNode.next;
+            newNode.previous = currentNode;
+            currentNode.next = newNode;
+            if (newNode.next != null) {
+                newNode.next.previous = newNode;
             } else {
                 tail = newNode;
             }
         } else if (position == BEFORE) {
-            newNode.setPrevious(currentNode.getPrevious());
-            newNode.setNext(currentNode);
-            currentNode.setPrevious(newNode);
-            if (newNode.getPrevious() != null) {
-                newNode.getPrevious().setNext(newNode);
+            newNode.previous = currentNode.previous;
+            newNode.next = currentNode;
+            currentNode.previous = newNode;
+            if (newNode.previous != null) {
+                newNode.previous.next = newNode;
             } else {
                 head = newNode;
             }
