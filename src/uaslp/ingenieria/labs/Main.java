@@ -2,11 +2,14 @@ package uaslp.ingenieria.labs;
 
 import uaslp.ingenieria.labs.list.Iterator;
 import uaslp.ingenieria.labs.list.LinkedList;
+import uaslp.ingenieria.labs.list.Position;
 import uaslp.ingenieria.labs.list.ReverseIterator;
 
 public class Main {
 
     public static void main(String[] args) {
+        // Wrapper classes -> Integer, Float, Character, Boolean
+        //Las wrapper classes son "Inmutables"
 
         LinkedList lista1 = new LinkedList();
 
@@ -22,11 +25,11 @@ public class Main {
             int element = it.next(); //regresar el dato y avanzar el iterador
 
             if(element == 3){
-                lista1.insert(10, LinkedList.BEFORE, backupIt);
+                lista1.insert(10, Position.BEFORE, backupIt);
             }
 
             if(element == 7){
-                lista1.insert(15, LinkedList.AFTER, backupIt);
+                lista1.insert(15, Position.AFTER, backupIt);
             }
         }
 

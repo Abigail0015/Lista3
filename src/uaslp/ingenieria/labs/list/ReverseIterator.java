@@ -5,11 +5,22 @@ package uaslp.ingenieria.labs.list;
  */
 public class ReverseIterator {
 
+    private Node currentNode;
+
+    public ReverseIterator(Node currentNode) {
+        this.currentNode = currentNode;
+    }
+
+
     public boolean hasNext(){
-        return false;
+        return currentNode != null;
     }
 
     public int next(){
-        return 0;
+        int data = currentNode.getData();
+
+        currentNode = currentNode.getPrevious();
+
+        return data;
     }
 }

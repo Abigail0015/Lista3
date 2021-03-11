@@ -1,12 +1,12 @@
 package uaslp.ingenieria.labs.list;
 
+import static uaslp.ingenieria.labs.list.Position.AFTER;
+import static uaslp.ingenieria.labs.list.Position.BEFORE;
+
 /**
  * Lista doblemente ligada
  */
 public class LinkedList {
-
-    public static final int BEFORE = 0;
-    public static final int AFTER = 1;
 
     private Node head;
     private Node tail;
@@ -92,7 +92,7 @@ public class LinkedList {
         return new Iterator(head);
     }
 
-    public void insert(int data, int position, Iterator it) {
+    public void insert(int data, Position position, Iterator it) {
         // ¿qué ofrece java para restringir los valores de position a solamente BEFORE y AFTER?
 
         Node newNode = new Node(data);
@@ -121,9 +121,6 @@ public class LinkedList {
         }
         size++;
     }
-
-
-    //Iterador -> patrón de diseño
 
     public int getSize() {
         return size;
