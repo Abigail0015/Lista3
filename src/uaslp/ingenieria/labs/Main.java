@@ -35,7 +35,7 @@ public class Main {
 
         System.out.println("El tamaño es:" + lista1.getSize());
 
-        Iterator<Integer> it = lista1.getIterator();
+        /*Iterator<Integer> it = lista1.getIterator();
 
         while(it.hasNext()){
             int element = it.next();
@@ -59,7 +59,7 @@ public class Main {
 
         while(itStrings.hasNext()){
             System.out.println(itStrings.next());
-        }
+        }*/
 
     }
 }

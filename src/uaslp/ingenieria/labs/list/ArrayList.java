@@ -6,7 +6,7 @@ public class ArrayList <H> implements List<H>{
     private int size;
 
     public ArrayList() {
-        this.array = new Object[2];
+        this.array = new Object[4];
     }
 
     @Override
